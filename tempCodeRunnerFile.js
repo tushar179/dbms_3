@@ -1,0 +1,1 @@
+body('joiningYear').isInt({ min: 1900, max: new Date().getFullYear() })

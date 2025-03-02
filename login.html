@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="nav-logo">Alumni Management</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="home.html" class="nav-links">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-links">About us</a> 
+                </li>
+                <li class="nav-item"></li>
+                    <a href="events.html" class="nav-links">Events</a> 
+                </li>
+                <li class="nav-item">
+                    <a href="login.html" class="nav-links">Login</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="signup.html" class="nav-links">sign up</a>
+                </li>
+            </ul>
+            <div class="nav-icon" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="background-image">
+        <div class="login-container">
+            <h1>Login</h1>
+            <form id="loginForm">
+                <label for="userType">User Type</label>
+                <select id="userType" name="userType" required>
+                    <option value="student">Student</option>
+                    <option value="alumni">Alumni</option>
+                </select>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    localStorage.setItem('token', result.token);
+                    localStorage.setItem('userType', data.userType);
+                    alert('Login successful!');
+                    // Redirect to appropriate dashboard based on user type
+                    window.location.href = data.userType === 'student' ? 'student-dashboard.html' : 'alumni-dashboard.html';
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.error}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            }
+        });
+    </script>
+    <script src="server.js"></script>
+</body>
+</html>

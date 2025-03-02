@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body">
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="nav-logo">Alumni Management</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="home.html" class="nav-links">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-links">About us</a> 
+                </li>
+                <li class="nav-item">
+                    <a href="events.html" class="nav-links">Events</a> 
+                </li>
+                <li class="nav-item">
+                    <a href="login.html" class="nav-links">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="signup.html" class="nav-links">sign up</a>
+                </li>
+            </ul>
+            <div class="nav-icon" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="signup-container">
+        <h2>Student Sign Up</h2>
+        <form id="studentSignupForm">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+
+            <label for="rollNumber">Roll Number:</label>
+            <input type="text" id="rollNumber" name="rollNumber" required>
+
+            <label for="prn">PRN:</label>
+            <input type="text" id="prn" name="prn" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="mobileNumber">Mobile Number:</label>
+            <input type="tel" id="mobileNumber" name="mobileNumber" required>
+
+            <label for="branch">Branch:</label>
+            <select id="branch" name="branch" required>
+                <option value="" disabled selected>Select your branch</option>
+                <option value="CSE AI">Computer Science Engineering (Artificial intelligence)</option>
+                <option value="ECE">Electronics and Communication Engineering</option>
+                <option value="ME">Mechanical Engineering</option>
+                <option value="CE">Civil Engineering</option>
+                <option value="EE">Electrical Engineering</option>
+                <option value="CSE">Computer Science Engineering</option>
+            </select>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" class="signup-button">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('studentSignupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/student/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    alert(result.message);
+                    e.target.reset();
+                    // Redirect to login page or dashboard
+                    window.location.href = 'login.html';
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.error}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            }
+        });
+    </script>
+    <script src="server.js"></script>
+</body>
+</html>

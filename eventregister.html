@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="nav-logo">Alumni Management</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="home.html" class="nav-links">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-links">About us</a> 
+                </li>
+                <li class="nav-item"></li>
+                    <a href="events.html" class="nav-links">Events</a> 
+                </li>
+                <li class="nav-item">
+                    <a href="login.html" class="nav-links">Login</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="signup.html" class="nav-links">sign up</a>
+                </li>
+            </ul>
+            <div class="nav-icon" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+    <div class="alumni-signup-container">
+        <h2 class="register">Event Sign Up</h2>
+        <form class="registerform">
+            <label for="register-name">Event Name:</label>
+            <select id="register-name" name="register-name" required class="alumni-select">
+                <option value="">Select an event</option>
+                <option value="event1">Saturday Club</option>
+                <option value="event2">Coffee with Alumni</option>
+                <option value="event3">Roadmap Session</option>
+                <option value="event4">Road Safety Awareness Drive</option>
+                <option value="event5">VIIT Alumni Grand Meet</option>
+                <option value="event6">ALUMNI MEET' 2024</option>
+            </select>
+
+            <label for="register-id">Event ID:</label>
+            <input type="text" id="register-id" name="register-id" required class="alumni-input">
+
+            <label for="register-venue">Venue:</label>
+            <input type="text" id="register-venue" name="register-venue" required class="alumni-input">
+
+            <label for="register-date">Date:</label>
+            <input type="date" id="register-date" name="register-date" required class="alumni-input">
+
+            <label for="register-time">Time:</label>
+            <input type="time" id="register-time" name="register-time" required class="alumni-input">
+
+            <button class="alumni-signup-button" type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
